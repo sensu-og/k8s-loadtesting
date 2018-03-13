@@ -1,0 +1,21 @@
+apiVersion: "apps/v1beta2"
+kind: Deployment
+metadata:
+  name: sensu-agent
+  labels:
+    app: sensu-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sensu-agent
+  template:
+    metadata:
+      labels:
+        app: sensu-agent
+    spec:
+      containers:
+      - name: sensu-agent
+        image: "sensuapp/sensu-go:master"
+        command: ["sensu-agent", "start"]
+        args: ["--backend-url", "ws://load-test-backend:8081", "--subscriptions", "test"]
