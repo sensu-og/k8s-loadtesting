@@ -5,7 +5,7 @@ metadata:
   labels:
     app: sensu-agent
 spec:
-  replicas: 1
+  replicas: 30
   selector:
     matchLabels:
       app: sensu-agent
@@ -19,3 +19,7 @@ spec:
         image: "sensuapp/sensu-go:master"
         command: ["sensu-agent", "start"]
         args: ["--backend-url", "ws://load-test-backend:8081", "--subscriptions", "test"]
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "1m"
